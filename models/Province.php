@@ -1,0 +1,54 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "province".
+ *
+ * @property integer $province_id
+ * @property string $province_code
+ * @property string $province_name
+ * @property integer $geo_id
+ */
+class Province extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'province';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['chwpart', 'province_name'], 'required'],
+            [['geo_id'], 'integer'],
+            [['chwpart'], 'string', 'max' => 2],
+            [['province_name'], 'string', 'max' => 150],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'province_id' => 'Province ID',
+            'chwpart' => 'Province Code',
+            'province_name' => 'Province Name',
+            'geo_id' => 'Geo ID',
+        ];
+    }
+    
+//    public static function GetList() {
+//        return \yii\helpers\ArrayHelper::map(self::find()->all(), 'chwpart', 'province_name');
+//    }
+}
