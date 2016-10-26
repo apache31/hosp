@@ -28,7 +28,7 @@ class Province extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['chwpart', 'province_name'], 'required'],
+            [['province_code', 'province_name'], 'required'],
             [['geo_id'], 'integer'],
             [['chwpart'], 'string', 'max' => 2],
             [['province_name'], 'string', 'max' => 150],
@@ -42,7 +42,7 @@ class Province extends \yii\db\ActiveRecord
     {
         return [
             'province_id' => 'Province ID',
-            'chwpart' => 'Province Code',
+            'province_code' => 'Province Code',
             'province_name' => 'Province Name',
             'geo_id' => 'Geo ID',
         ];

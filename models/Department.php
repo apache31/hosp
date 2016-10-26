@@ -36,7 +36,8 @@ class Department extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'addrpart', 'moopart', 'tmbpart', 'amppart', 'chwpart', 'postcode', 'phone', 'fax', 'website'], 'required'],
+            //[['name', 'addrpart', 'moopart', 'tmbpart', 'amppart', 'chwpart', 'postcode', 'phone', 'fax', 'website'], 'required'],
+            [['name'], 'required'],
             [['name'], 'string', 'max' => 200],
             [['addrpart', 'phone', 'fax'], 'string', 'max' => 50],
             [['moopart'], 'string', 'max' => 3],
@@ -73,7 +74,7 @@ class Department extends \yii\db\ActiveRecord
     */
     public function getProvince()
     {
-        return $this->hasOne(Province::className(), ['chwpart' => 'chwpart']);
+        return $this->hasOne(Province::className(), ['province_code' => 'chwpart']);
     }
     
     public function getAmphur()
