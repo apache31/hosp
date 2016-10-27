@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Department */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Departments', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'หน่วยงาน', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="department-view">
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->depart_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->depart_id], [
+        <?= Html::a('ปรับปรุงข้อมูล', ['update', 'id' => $model->depart_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('ลบรายการ', ['delete', 'id' => $model->depart_id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',

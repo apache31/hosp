@@ -8,6 +8,11 @@ use app\models\DepartmentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
+
+use app\models\Amphur;
+use app\models\District;
 
 /**
  * DepartmentController implements the CRUD actions for Department model.
@@ -83,12 +88,17 @@ class DepartmentController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        
+        $amphur = ArrayHelper::map($this->getAmphur($model->chwpart),'id','name');
+        $district = ArrayHelper::map($this->getDistrict($model->amppart),'id','name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->depart_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'amphur'=> $amphur,
+                'district'=> $district
             ]);
         }
     }
@@ -120,5 +130,51 @@ class DepartmentController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionGetAmphur() {
+     $out = [];
+     if (isset($_POST['depdrop_parents'])) {
+         $parents = $_POST['depdrop_parents'];
+         if ($parents != null) {
+             $province_code = $parents[0];
+             $out = $this->getAmphur($province_code);
+             echo Json::encode(['output'=>$out, 'selected'=>'']);
+             return;
+         }
+     }
+     echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+    
+    public function actionGetDistrict() {
+     $out = [];
+     if (isset($_POST['depdrop_parents'])) {
+         $parents = $_POST['depdrop_parents'];
+         if ($parents != null) {
+             $amphur_code = $parents[0];
+             $out = $this->getDistrict($amphur_code);
+             echo Json::encode(['output'=>$out, 'selected'=>'']);
+             return;
+         }
+     }
+     echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+    
+    protected function getAmphur($id){
+        $datas = Amphur::find()->where("amphur_code LIKE '".$id."%'")->all();
+        return $this->MapData($datas,'amphur_code','amphur_name');
+    }
+    
+    protected function getDistrict($id){
+        $datas = District::find()->where("district_code LIKE '".$id."%'")->all();
+        return $this->MapData($datas,'district_code','district_name');
+    }
+    
+    protected function MapData($datas,$fieldId,$fieldName){
+        $obj = [];
+        foreach ($datas as $key => $value) {
+            array_push($obj, ['id'=>$value->{$fieldId},'name'=>$value->{$fieldName}]);
+        }
+        return $obj;
     }
 }

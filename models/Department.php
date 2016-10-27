@@ -37,7 +37,7 @@ class Department extends \yii\db\ActiveRecord
     {
         return [
             //[['name', 'addrpart', 'moopart', 'tmbpart', 'amppart', 'chwpart', 'postcode', 'phone', 'fax', 'website'], 'required'],
-            [['name'], 'required'],
+            [['name'], 'required','message' => 'กรุณาระบุ {attribute}'],
             [['name'], 'string', 'max' => 200],
             [['addrpart', 'phone', 'fax'], 'string', 'max' => 50],
             [['moopart'], 'string', 'max' => 3],

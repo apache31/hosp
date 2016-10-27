@@ -50,4 +50,5 @@ class Amphur extends \yii\db\ActiveRecord
             'province_id' => 'Province ID',
         ];
     }
+    
 }
